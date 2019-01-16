@@ -3,8 +3,8 @@ Exam 2, problem 2.
 
 Authors: David Mutchler, Vibha Alangar, Matt Boutell, Dave Fisher,
          Mark Hays, Amanda Stouder, Aaron Wilkin, their colleagues,
-         and PUT_YOUR_NAME_HERE.
-"""  # TODO: 1. PUT YOUR NAME IN THE ABOVE LINE.
+         and Eddie Mannan.
+"""  # DONE: 1. PUT YOUR NAME IN THE ABOVE LINE.
 
 import math
 import time
@@ -13,7 +13,7 @@ import testing_helper
 
 
 ###############################################################################
-# TODO: 2.  READ the   Point   class defined below.
+# DONE: 2.  READ the   Point   class defined below.
 #  Note especially its methods:
 #    clone
 #    distance_from
@@ -86,13 +86,12 @@ def main():
     print()
     print('Un-comment the calls in MAIN one by one')
     print(' to run the testing code as you complete the TODOs.')
-
-    # run_test_init()
-    # run_test_area()
-    # run_test_bigger_triangle()
-    # run_test_shrink_or_expand()
-    # run_test_return_doubled_triangle()
-    # run_test_get_largest_area()
+    run_test_init()
+    run_test_area()
+    run_test_bigger_triangle()
+    run_test_shrink_or_expand()
+    run_test_return_doubled_triangle()
+    run_test_get_largest_area()
 
 
 ###############################################################################
@@ -137,8 +136,12 @@ class Triangle(object):
           :type b: Point
           :type c: Point
         """
+        self.a = Point.clone(a)
+        self.b = Point.clone(b)
+        self.c = Point.clone(c)
+
         # ---------------------------------------------------------------------
-        # TODO: 2.
+        # DONE: 2.
         #   a. READ the above specification, including the Example.
         #        ** ASK QUESTIONS AS NEEDED. **
         #        ** Be sure you understand it, ESPECIALLY the Example.
@@ -177,8 +180,14 @@ class Triangle(object):
         Type hints:
           :rtype: float
         """
+        side1 = Point.distance_from(self.a, self.b)
+        side2 = Point.distance_from(self.b, self.c)
+        side3 = Point.distance_from(self.c, self.a)
+        s = .5 * (side1 + side2 + side3)
+        area = math.sqrt(s * (s - side1) * (s - side2) * (s - side3))
+        return area
         # ---------------------------------------------------------------------
-        # TODO: 3.
+        # DONE: 3.
         #   a. READ the above specification, including the Example AND HINT!
         #        ** ASK QUESTIONS AS NEEDED. **
         #        ** Be sure you understand it, ESPECIALLY the Example.
@@ -200,8 +209,16 @@ class Triangle(object):
           :type: triangle2: Triangle
           :rtype: bool
         """
+        side1 = Point.distance_from(triangle2.a, triangle2.b)
+        side2 = Point.distance_from(triangle2.b, triangle2.c)
+        side3 = Point.distance_from(triangle2.c, triangle2.a)
+        s = .5 * (side1 + side2 + side3)
+        area2 = math.sqrt(s * (s - side1) * (s - side2) * (s - side3))
+        if self.area() > area2:
+            return True
+        return False
         # ---------------------------------------------------------------------
-        # TODO 4:
+        # DONE 4:
         #   a. READ the above specification, including the Example.
         #        ** ASK QUESTIONS AS NEEDED. **
         #        ** Be sure you understand it, ESPECIALLY the Example.
@@ -223,8 +240,12 @@ class Triangle(object):
          Type hints:
            :type: f: float
         """
+        self.a = Point(self.a.x * f, self.a.y * f)
+        self.b = Point(self.b.x * f, self.b.y * f)
+        self.c = Point(self.c.x * f, self.c.y * f)
+        return Triangle(self.a, self.b, self.c)
         # ---------------------------------------------------------------------
-        # TODO 8:
+        # DONE 8:
         #   a. READ the above specification, including the Example.
         #        ** ASK QUESTIONS AS NEEDED. **
         #        ** Be sure you understand it, ESPECIALLY the Example.
@@ -246,8 +267,10 @@ class Triangle(object):
         Type hints:
           :rtype: Triangle:
         """
+
+        return self.shrink_or_expand(2)
         # -------------------------------------------------------------------------
-        # TODO: 9
+        # DONE: 9
         #   a. READ the above specification, including the Example.
         #        ** ASK QUESTIONS AS NEEDED. **
         #        ** Be sure you understand it, ESPECIALLY the Example.
@@ -270,8 +293,12 @@ class Triangle(object):
         Type hints:
           :rtype: Float:
         """
+        # I am not sure how to write this without some value to plug into f
+        if self.shrink_or_expand() > self.area():
+            return self.shrink_or_expand()
+        return self.area()
         # ---------------------------------------------------------------------
-        # TODO: 9
+        # DONE: 9
         #   a. READ the above specification, including the Example.
         #        ** ASK QUESTIONS AS NEEDED. **
         #        ** Be sure you understand it, ESPECIALLY the Example.
